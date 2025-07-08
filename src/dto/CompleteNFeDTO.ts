@@ -10,5 +10,4 @@ export interface CompleteNFeDTO {
   summary: SummaryDTO;
   tax: TaxDTO;
   generalInfo: GeneralInfoDTO;
-  
 }

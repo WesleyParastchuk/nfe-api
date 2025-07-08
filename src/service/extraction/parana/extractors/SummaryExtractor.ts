@@ -1,7 +1,7 @@
-import { SummaryDTO } from "../../../dto/SummaryDTO";
-import { CheerioAPI } from "../HttpParser";
+import { SummaryDTO } from "../../../../dto/SummaryDTO";
+import { CheerioAPI } from "../../common/HttpParser";
 
-export function extractSummary($: CheerioAPI): SummaryDTO {
+export function extractParanaSummary($: CheerioAPI): SummaryDTO {
   const totalItemsRaw = $("#totalNota #linhaTotal .totalNumb")
     .first()
     .text()

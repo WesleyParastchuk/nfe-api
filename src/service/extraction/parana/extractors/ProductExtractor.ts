@@ -1,7 +1,7 @@
-import { ProductDTO } from "../../../dto/ProductDTO";
-import { CheerioAPI } from "../HttpParser";
+import { ProductDTO } from "../../../../dto/ProductDTO";
+import { CheerioAPI } from "../../common/HttpParser";
 
-export function extractProducts($: CheerioAPI): ProductDTO[] {
+export function extractParanaProducts($: CheerioAPI): ProductDTO[] {
   const products: ProductDTO[] = [];
 
   $("#tabResult tr").each((_, element) => {
