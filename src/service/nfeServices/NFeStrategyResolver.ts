@@ -3,9 +3,10 @@ import { ParanaNFeStrategy } from "../extraction/parana/ParanaNFeStrategy";
 import { DefaultNFeOrchestrator } from "./DefaultNfeExtractorOrchestrator";
 import { DefaultHtmlFetcher } from "./DefaultHtmlFetcher";
 import { DefaultNFeAggregator } from "./DefaultNFeAggregator";
+import { SaoPauloNFeStrategy } from "../extraction/saoPaulo/SaoPauloNFeStrategy";
 
 export class NFeStrategyResolver {
-  private strategies: NFeExtractionStrategy[] = [new ParanaNFeStrategy()];
+  private strategies: NFeExtractionStrategy[] = [new ParanaNFeStrategy(), new SaoPauloNFeStrategy()];
 
   async execute(url: string): Promise<any> {
     const strategy = this.strategies.find((s) => s.matches(url));

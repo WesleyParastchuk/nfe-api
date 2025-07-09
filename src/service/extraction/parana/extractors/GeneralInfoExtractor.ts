@@ -1,4 +1,3 @@
-import { Extractor } from "./../../common/Extractor";
 import { GeneralInfoDTO } from "../../../../dto/GeneralInfoDTO";
 import { CheerioAPI } from "../../common/HttpParser";
 
