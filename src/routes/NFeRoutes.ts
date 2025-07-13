@@ -3,6 +3,6 @@ import { getFull } from "../controllers/NFeController";
 
 const router = Router();
 
-router.get("/", getFull);
+router.post("/", getFull);
 
 export default router;
