@@ -1,5 +1,6 @@
 import { ProductDTO } from "../../../../dto/ProductDTO";
 import { CheerioAPI } from "../../common/HttpParser";
+import { normalizeUnit } from "../../common/normalizer";
 
 export function extractParanaProducts($: CheerioAPI): ProductDTO[] {
   const products: ProductDTO[] = [];
@@ -16,7 +17,8 @@ export function extractParanaProducts($: CheerioAPI): ProductDTO[] {
     const rawQty = $(element).find(".Rqtd").text().replace("Qtde.:", "").trim();
     const quantity = parseFloat(rawQty.replace(",", ".")) || 0;
 
-    const unit = $(element).find(".RUN").text().replace("UN:", "").trim();
+
+    const unit = normalizeUnit($(element).find(".RUN").text().replace("UN:", "").trim());
 
     const rawUnitPrice = $(element)
       .find(".RvlUnit")

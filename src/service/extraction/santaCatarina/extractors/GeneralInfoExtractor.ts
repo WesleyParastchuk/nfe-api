@@ -8,20 +8,24 @@ function parseDateToTimestamp(dateStr: string): number {
 }
 
 export function extractSantaCatarinaGeneralInfo($: CheerioAPI): GeneralInfoDTO {
-  const rawText = $("#conteudo").text().replace(/\s+/g, " ").trim();
+  const infoText = $("#infos ul li").first().text().replace(/\s+/g, " ").trim();
 
-  const emissionTypeMatch = rawText.match(/EMISSÃO\s+NORMAL/i);
-  const numberMatch = rawText.match(/Número:\s*(\d+)/i);
-  const seriesMatch = rawText.match(/Série:\s*(\d+)/i);
-  const emissionDateMatch = rawText.match(/Emissão:\s*([\d/]+\s[\d:]+)/i);
-  const protocolMatch = rawText.match(/Protocolo de Autorização:\s*(\d+)/i);
-  const protocolDateMatch = rawText.match(/Protocolo de Autorização:\s*\d+\s+([\d/]+\s[\d:]+)/i);
-  const envMatch = rawText.match(/Ambiente de (Produção|Homologação)/i);
-  const xmlVersionMatch = rawText.match(/Versão XML:\s*([\d.]+)/i);
-  const xsltVersionMatch = rawText.match(/Versão XSLT:\s*([\d.]+)/i);
+  const emissionType = /EMISSÃO\s+NORMAL/i.test(infoText) ? "Normal" : "";
+
+  const numberMatch = infoText.match(/Número:\s*(\d+)/i);
+  const seriesMatch = infoText.match(/Série:\s*(\d+)/i);
+  const emissionDateMatch = infoText.match(/Emissão:\s*([\d/]+\s[\d:]+)/i);
+  const protocolMatch = infoText.match(/Protocolo de Autorização:\s*(\d+)/i);
+  const protocolDateMatch = infoText.match(
+    /Protocolo de Autorização:\s*\d+\s+([\d/]+\s[\d:]+)/i
+  );
+
+  const ambienteRaw = infoText.match(/Ambiente de\s+(Produção|Homologação)/i);
+  const xmlMatch = infoText.match(/Versão XML:\s*([\d.]+)/i);
+  const xsltMatch = infoText.match(/Versão XSLT:\s*([\d.]+)/i);
 
   return {
-    emissionType: emissionTypeMatch ? "Normal" : "",
+    emissionType,
     invoiceNumber: numberMatch ? parseInt(numberMatch[1], 10) : 0,
     series: seriesMatch ? parseInt(seriesMatch[1], 10) : 0,
     emissionDate: emissionDateMatch
@@ -31,8 +35,8 @@ export function extractSantaCatarinaGeneralInfo($: CheerioAPI): GeneralInfoDTO {
     protocolDate: protocolDateMatch
       ? parseDateToTimestamp(protocolDateMatch[1])
       : 0,
-    environment: envMatch?.[1] ?? "",
-    xmlVersion: xmlVersionMatch?.[1] ?? "",
-    xsltVersion: xsltVersionMatch?.[1] ?? "",
+    environment: ambienteRaw?.[1] ?? "",
+    xmlVersion: xmlMatch?.[1] ?? "",
+    xsltVersion: xsltMatch?.[1] ?? "",
   };
 }
