@@ -1,6 +1,6 @@
 import { CompleteNFeDTO } from "../../../dto/CompleteNFeDTO";
 import { GeneralInfoDTO } from "../../../dto/GeneralInfoDTO";
-import { IssuerDTO } from "../../../dto/IssuerDTO";
+import { SupplierDTO } from "../../../dto/SupplierDTO";
 import { ProductDTO } from "../../../dto/ProductDTO";
 import { SummaryDTO } from "../../../dto/SummaryDTO";
 import { TaxDTO } from "../../../dto/TaxDTO";
@@ -8,7 +8,7 @@ import { TaxDTO } from "../../../dto/TaxDTO";
 export interface NFeAggregator {
   aggregate(
     generalInfo: GeneralInfoDTO,
-    issuer: IssuerDTO,
+    issuer: SupplierDTO,
     products: ProductDTO[],
     summary: SummaryDTO,
     taxes: TaxDTO

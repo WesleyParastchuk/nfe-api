@@ -4,14 +4,14 @@ import { NFeAggregator } from "./contracts/NFeAggregator";
 export class DefaultNFeAggregator implements NFeAggregator {
   aggregate(
     generalInfo: CompleteNFeDTO["generalInfo"],
-    issuer: CompleteNFeDTO["issuer"],
+    issuer: CompleteNFeDTO["supplier"],
     products: CompleteNFeDTO["products"],
     summary: CompleteNFeDTO["summary"],
     tax: CompleteNFeDTO["tax"]
   ): CompleteNFeDTO {
     return {
       generalInfo: generalInfo,
-      issuer: issuer,
+      supplier: issuer,
       products: products,
       summary: summary,
       tax: tax,

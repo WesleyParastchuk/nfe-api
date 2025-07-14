@@ -1,11 +1,11 @@
 import { GeneralInfoDTO } from "./GeneralInfoDTO";
-import { IssuerDTO } from "./IssuerDTO";
+import { SupplierDTO } from "./SupplierDTO";
 import { ProductDTO } from "./ProductDTO";
 import { SummaryDTO } from "./SummaryDTO";
 import { TaxDTO } from "./TaxDTO";
 
 export interface CompleteNFeDTO {
-  issuer: IssuerDTO;
+  supplier: SupplierDTO;
   products: ProductDTO[];
   summary: SummaryDTO;
   tax: TaxDTO;

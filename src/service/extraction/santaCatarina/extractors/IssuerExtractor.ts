@@ -1,7 +1,7 @@
-import { IssuerDTO } from "../../../../dto/IssuerDTO";
+import { SupplierDTO } from "../../../../dto/SupplierDTO";
 import { CheerioAPI } from "../../common/HttpParser";
 
-export function extractSantaCatarinaIssuer($: CheerioAPI): IssuerDTO {
+export function extractSantaCatarinaIssuer($: CheerioAPI): SupplierDTO {
   const name = getNameSC($);
   const cnpj = getCNPJSC($);
   return { name, cnpj, address: getAddressSC($) };

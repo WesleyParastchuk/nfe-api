@@ -1,6 +1,6 @@
 import { GeneralInfoDTO } from "../../../dto/GeneralInfoDTO";
 import { NFeExtractionStrategy } from "../../nfeServices/NFeExtractionStrategy.interface";
-import { IssuerDTO } from "../../../dto/IssuerDTO";
+import { SupplierDTO } from "../../../dto/SupplierDTO";
 import { ProductDTO } from "../../../dto/ProductDTO";
 import { SummaryDTO } from "../../../dto/SummaryDTO";
 import { TaxDTO } from "../../../dto/TaxDTO";
@@ -22,7 +22,7 @@ export class SantaCatarinaNFeStrategy implements NFeExtractionStrategy {
     return extractSantaCatarinaGeneralInfo(html);
   }
 
-  extractIssuer(html: CheerioAPI): IssuerDTO {
+  extractIssuer(html: CheerioAPI): SupplierDTO {
     return extractSantaCatarinaIssuer(html);
   }
 

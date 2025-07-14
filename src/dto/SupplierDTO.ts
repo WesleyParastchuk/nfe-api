@@ -1,6 +1,6 @@
 import { AddressDTO } from "./AddressDTO";
 
-export interface IssuerDTO {
+export interface SupplierDTO {
   name: string;
   cnpj: string;
   address: AddressDTO;

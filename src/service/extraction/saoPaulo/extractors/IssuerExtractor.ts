@@ -1,7 +1,7 @@
-import { IssuerDTO } from "../../../../dto/IssuerDTO";
+import { SupplierDTO } from "../../../../dto/SupplierDTO";
 import { CheerioAPI } from "../../common/HttpParser";
 
-export function extractSaoPauloIssuer($: CheerioAPI): IssuerDTO {
+export function extractSaoPauloIssuer($: CheerioAPI): SupplierDTO {
   const name = getNameSP($);
   const cnpj = getCNPJSP($);
   return { name, cnpj, address: getAddressSP($) };
@@ -45,4 +45,3 @@ function getAddressSP($: CheerioAPI) {
     uf: state,
   };
 }
-
