@@ -8,40 +8,32 @@ export function extractSaoPauloIssuer($: CheerioAPI): SupplierDTO {
 }
 
 function getNameSP($: CheerioAPI): string {
-  const nome = $("#u20").text().trim();
-  return nome || "Issuer not found";
+  const nome = $("#u20").text().trim().toUpperCase();
+  return nome || "ISSUER NOT FOUND";
 }
 
 function getCNPJSP($: CheerioAPI): string {
-  const cnpjRaw = $(".text")
-    .filter((_, el) => $(el).text().includes("CNPJ:"))
-    .first()
-    .text();
-
-  const cnpj = cnpjRaw.replace("CNPJ:", "").replace(/\D/g, "");
-  return cnpj || "CNPJ not found";
+  const cnpjRaw = $("#conteudo > div.txtCenter > div:nth-child(2)").text().trim();
+  const cnpj = cnpjRaw.replace(/\D/g, "");
+  return cnpj.toUpperCase() || "CNPJ NOT FOUND";
 }
 
 function getAddressSP($: CheerioAPI) {
-  const addressText = $(".text").eq(1).text().trim();
-
-  const parts = addressText
-    .split(",")
-    .map((p) => p.trim())
-    .filter((p) => p.length > 0);
+  const addressText = $("#conteudo > div.txtCenter > div:nth-child(3)").text().trim().toUpperCase();
+  const parts = addressText.split(',').map(p => p.trim()).filter(p => p.length > 0);
 
   if (parts.length < 4) {
-    throw new Error("Formato de endereço inesperado para NFC-e SP.");
+    throw new Error("UNEXPECTED ADDRESS FORMAT FOR NFC-E SP.");
   }
 
-  const [street, number, , district, city, state] = parts;
+  const [street, number, district, city, uf] = parts;
 
   return {
-    street,
-    number,
+    street: street,
+    number: number,
     complement: "",
-    district,
-    city,
-    uf: state,
+    district: district,
+    city: city,
+    uf: uf,
   };
 }

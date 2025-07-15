@@ -8,32 +8,42 @@ function parseDateToTimestamp(dateStr: string): number {
 }
 
 export function extractSaoPauloGeneralInfo($: CheerioAPI): GeneralInfoDTO {
-  const rawText = $("#conteudo").text().replace(/\s+/g, " ").trim();
+  const infoElement = $("#infos")
+    .find("h4:contains('Informações gerais da Nota')")
+    .next("ul")
+    .find("li");
 
-  const emissionTypeMatch = rawText.match(/Tipo de Emissão:\s*([A-Z\s]+)/i);
-  const numberMatch = rawText.match(/Número:\s*(\d+)/i);
-  const seriesMatch = rawText.match(/Série:\s*(\d+)/i);
-  const emissionDateMatch = rawText.match(/Data de Emissão:\s*([\d/]+\s[\d:]+)/i);
-  const protocolMatch = rawText.match(/Protocolo de Autorização:\s*(\d+)/i);
-  const protocolDateMatch = rawText.match(/Protocolo de Autorização:\s*\d+\s+([\d/]+\s[\d:]+)/i);
-  const envMatch = rawText.match(/Ambiente:\s*(Produção|Homologação)/i);
-  const xmlVersionMatch = rawText.match(/Versão do XML:\s*([\d.]+)/i);
-  const xsltVersionMatch = rawText.match(/Versão do XSLT:\s*([\d.]+)/i);
+  const infoText = infoElement.text().replace(/\s\s+/g, " ").trim();
+
+  const emissionType = infoText.split("EMISSÃO NORMAL")[0] + "EMISSÃO NORMAL";
+  const numberMatch = infoText.match(/Número: (\d+)/);
+  const seriesMatch = infoText.match(/Série: (\d+)/);
+  const emissionDateMatch = infoText.match(/Emissão: ([\d\/]+\s[\d:]+)/);
+  const authorizationProtocolMatch = infoText.match(
+    /Protocolo de Autorização: (\d+)/
+  );
+  const protocolDateMatch = infoText.match(
+    /(\d{2}\/\d{2}\/\d{4}\s\d{2}:\d{2}:\d{2})/
+  );
+  const environmentMatch = infoText.match(/Ambiente de (Produção|Homologação)/);
+  const xmlVersionMatch = infoText.match(/Versão XML: ([\d\.]+)/);
+  const xsltVersionMatch = infoText.match(/Versão XSLT: ([\d\.]+)/);
 
   return {
-    emissionType: emissionTypeMatch?.[1].trim() ?? "",
+    emissionType: emissionType ? "EMISSÃO NORMAL" : "",
     invoiceNumber: numberMatch ? parseInt(numberMatch[1], 10) : 0,
     series: seriesMatch ? parseInt(seriesMatch[1], 10) : 0,
     emissionDate: emissionDateMatch
       ? parseDateToTimestamp(emissionDateMatch[1])
       : 0,
-    authorizationProtocol: protocolMatch?.[1] ?? "",
+    authorizationProtocol: authorizationProtocolMatch
+      ? authorizationProtocolMatch[1]
+      : "",
     protocolDate: protocolDateMatch
-      ? parseDateToTimestamp(protocolDateMatch[1])
+      ? parseDateToTimestamp(protocolDateMatch[0])
       : 0,
-    environment: envMatch?.[1] ?? "",
-    xmlVersion: xmlVersionMatch?.[1] ?? "",
-    xsltVersion: xsltVersionMatch?.[1] ?? "",
+    environment: environmentMatch ? environmentMatch[1] : "",
+    xmlVersion: xmlVersionMatch ? xmlVersionMatch[1] : "",
+    xsltVersion: xsltVersionMatch ? xsltVersionMatch[1] : "",
   };
 }
-

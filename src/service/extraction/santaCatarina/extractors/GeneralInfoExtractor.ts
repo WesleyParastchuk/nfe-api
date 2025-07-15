@@ -15,14 +15,19 @@ export function extractSantaCatarinaGeneralInfo($: CheerioAPI): GeneralInfoDTO {
   const numberMatch = infoText.match(/Número:\s*(\d+)/i);
   const seriesMatch = infoText.match(/Série:\s*(\d+)/i);
   const emissionDateMatch = infoText.match(/Emissão:\s*([\d/]+\s[\d:]+)/i);
-  const protocolMatch = infoText.match(/Protocolo de Autorização:\s*(\d+)/i);
-  const protocolDateMatch = infoText.match(
-    /Protocolo de Autorização:\s*\d+\s+([\d/]+\s[\d:]+)/i
+
+  const protocolMatch = infoText.match(
+    /Protocolo de Autorização:\s*(\d+)\s+([\d/]+)\s+às\s+([\d:]+)/i
   );
 
   const ambienteRaw = infoText.match(/Ambiente de\s+(Produção|Homologação)/i);
   const xmlMatch = infoText.match(/Versão XML:\s*([\d.]+)/i);
   const xsltMatch = infoText.match(/Versão XSLT:\s*([\d.]+)/i);
+
+  const authorizationProtocol = protocolMatch ? protocolMatch[1] : "";
+  const protocolDateString = protocolMatch
+    ? `${protocolMatch[2]} ${protocolMatch[3]}`
+    : null;
 
   return {
     emissionType,
@@ -31,9 +36,9 @@ export function extractSantaCatarinaGeneralInfo($: CheerioAPI): GeneralInfoDTO {
     emissionDate: emissionDateMatch
       ? parseDateToTimestamp(emissionDateMatch[1])
       : 0,
-    authorizationProtocol: protocolMatch?.[1] ?? "",
-    protocolDate: protocolDateMatch
-      ? parseDateToTimestamp(protocolDateMatch[1])
+    authorizationProtocol,
+    protocolDate: protocolDateString
+      ? parseDateToTimestamp(protocolDateString)
       : 0,
     environment: ambienteRaw?.[1] ?? "",
     xmlVersion: xmlMatch?.[1] ?? "",
