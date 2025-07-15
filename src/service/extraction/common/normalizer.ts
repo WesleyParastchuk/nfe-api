@@ -1,7 +1,7 @@
 // Sempre CAPSLOCK para facilitar a normalização
 const unitMapping = {
   KG: ["KG"],
-  UN: ["UN"],
+  UN: ["UN", "PC"],
 };
 
 export function normalizeUnit(input: string): string {
