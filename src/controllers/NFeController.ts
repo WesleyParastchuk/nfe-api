@@ -9,3 +9,10 @@ export const getFull = async (req: Request, res: Response) => {
 
   res.json(json);
 };
+
+export const getSupports = async (req: Request, res: Response) => {
+  const resolver = new NFeStrategyResolver();
+  const supports = resolver.getStrategiesLinks();
+
+  res.json(supports);
+}

@@ -37,4 +37,8 @@ export class SaoPauloNFeStrategy implements NFeExtractionStrategy {
   extractTaxes(html: CheerioAPI): TaxDTO {
     return extractSaoPauloTaxes(html);
   }
+
+  getLink(): string {
+    return this.baseUrl;
+  }
 }

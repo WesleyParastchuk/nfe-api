@@ -21,4 +21,8 @@ export class NFeStrategyResolver {
 
     return orchestrator.run(url);
   }
+
+  getStrategiesLinks(): string[] {
+    return this.strategies.map((strategy) => strategy.getLink());
+  }
 }

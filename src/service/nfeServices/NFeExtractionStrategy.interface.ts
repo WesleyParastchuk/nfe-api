@@ -12,4 +12,5 @@ export interface NFeExtractionStrategy {
   extractProducts(html: CheerioAPI): ProductDTO[];
   extractSummary(html: CheerioAPI): SummaryDTO;
   extractTaxes(html: CheerioAPI): TaxDTO;
+  getLink(): string;
 }

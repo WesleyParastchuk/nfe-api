@@ -37,4 +37,8 @@ export class ParanaNFeStrategy implements NFeExtractionStrategy {
   extractTaxes(html: CheerioAPI): TaxDTO {
     return extractParanaTaxes(html);
   }
+
+  getLink(): string {
+    return this.baseUrl;
+  }
 }

@@ -37,4 +37,8 @@ export class SantaCatarinaNFeStrategy implements NFeExtractionStrategy {
   extractTaxes(html: CheerioAPI): TaxDTO {
     return extractSantaCatarinaTaxes(html);
   }
+
+  getLink(): string {
+    return this.baseUrl;
+  }
 }
